@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+    <description>Run some tests for <%tpl.php%>site_name</%tpl.php%></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <org.jenkinsci.plugins.gitbucket.GitBucketProjectProperty plugin="gitbucket@0.5.1">
+      <url><%tpl.php%>github_url</%tpl.php%></url>
+      <linkEnabled>false</linkEnabled>
+    </org.jenkinsci.plugins.gitbucket.GitBucketProjectProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.2.1">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url><%tpl.php%>docroot</%tpl.php%></url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+  <hudson.tasks.Shell>
+      <command>echo &quot;Starting Selenium&quot;
+echo DISPLAY=$DISPLAY
+DISPLAY=$DISPLAY
+selenium &gt; /tmp/selenium-output.out 2&gt; /tmp/selenium-error.err &lt; /dev/null &amp;
+echo &quot;Waiting 20 seconds for Selenium to start&quot;
+sleep 20 </command>
+  </hudson.tasks.Shell>
+  <hudson.tasks.Shell>
+      <command>echo &quot;Starting Behat&quot;
+cd <%tpl.php%>docroot</%tpl.php%>
+echo DISPLAY=$DISPLAY
+DISPLAY=$DISPLAY
+testingkamen behat exec --yes --guess</command>
+  </hudson.tasks.Shell>
+  <hudson.tasks.Shell>
+      <command>echo &quot;Running PHPUnit&quot;
+cd <%tpl.php%>docroot</%tpl.php%>
+testingkamen phpunit exec --yes --guess</command>
+  </hudson.tasks.Shell>
+  <hudson.tasks.Shell>
+      <command>echo &quot;Stopping Selenium&quot;
+sudo cleopatra process kill --yes --guess --name1=selenium --use-psax</command>
+  </hudson.tasks.Shell>
+  </builders>
+<publishers>
+<hudson.plugins.postbuildtask.PostbuildTask plugin="postbuild-task@1.8">
+    <tasks>
+        <hudson.plugins.postbuildtask.TaskProperties>
+            <logTexts>
+                <hudson.plugins.postbuildtask.LogProperties>
+                    <logText></logText>
+                    <operator>AND</operator>
+                </hudson.plugins.postbuildtask.LogProperties>
+            </logTexts>
+            <EscalateStatus>false</EscalateStatus>
+            <RunIfJobSuccessful>false</RunIfJobSuccessful>
+            <script>echo &quot;Stopping Selenium&quot;
+sudo cleopatra process kill --yes ---guess --name1=selenium --use-psax</script>
+        </hudson.plugins.postbuildtask.TaskProperties>
+    </tasks>
+</hudson.plugins.postbuildtask.PostbuildTask>
+</publishers>
+  <buildWrappers>
+    <EnvInjectBuildWrapper plugin="envinject@1.89">
+      <info>
+        <loadFilesFromMaster>false</loadFilesFromMaster>
+      </info>
+    </EnvInjectBuildWrapper>
+    <org.jenkinsci.plugins.xvfb.XvfbBuildWrapper plugin="xvfb@1.0.7">
+        <installationName>Default</installationName>
+        <screen>1024x768x24</screen>
+        <debug>false</debug>
+        <timeout>0</timeout>
+        <displayNameOffset>1</displayNameOffset>
+        <additionalOptions></additionalOptions>
+        <shutdownWithBuild>false</shutdownWithBuild>
+    </org.jenkinsci.plugins.xvfb.XvfbBuildWrapper>
+  </buildWrappers>
+</project>

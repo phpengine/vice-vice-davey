@@ -1,0 +1,59 @@
+<?php
+/**
+ * @file
+ * This module is the "Golden Contact Rock, Paper, Scissors" functions.
+ *
+ * **-DATE-**
+ *
+ */
+/**
+ * Implements hook_help.
+ *
+ * Displays help and module information.
+ *
+ * @param path
+ * Which path of the site we're using to display help
+ * @param arg
+ * Array that holds the current path as returned from arg() function
+ */
+function hire_dave_now_help($path, $arg) {
+    switch ($path) {
+        case "admin/help#hire_dave_now":
+            return '<p>'.t("This is the Hire Dave Now Module").'</p>';
+            break;
+    }
+}
+/**
+ * Implements hook_block_info().
+ */
+function hire_dave_now_block_info() {
+    $blocks['hire_dave_now'] = array(
+        'info' => t('Golden Contact Rock, Paper, Scissors'), //The name that will appear in the block list.
+        'cache' => DRUPAL_CACHE_PER_ROLE //Default
+    );
+    return $blocks;
+}
+/**
+ * Implements hook_block_view().
+ */
+function hire_dave_now_block_view($delta = '') {
+    switch($delta){
+        case 'hire_dave_now_oop':
+            $block['subject'] = t('Some data from an OO Class');
+            if(user_access('access content')){
+                require_once(dirname(__FILE__)."/Libraries/HelloLib.php");
+                $hello = new HelloLib() ;
+                $word = $hello->sayHelloForMe() ;
+                $block['content'] = $word; }
+            break ;
+        case 'hire_dave_now_procedural':
+            $block['subject'] = t('A simple bit of data from a variable_get');
+            if(user_access('access content')){
+                require_once(dirname(__FILE__)."/Libraries/HelloLib.php");
+                $hello = new HelloLib() ;
+                $word = $hello->sayHelloForMe() ;
+                $block['content'] = $word; }
+            break ;
+    }
+    return $block;
+}

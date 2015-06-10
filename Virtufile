@@ -1,0 +1,98 @@
+<?php
+
+Namespace Model ;
+
+class Virtufile extends VirtufileBase {
+
+    public $config ;
+
+    public function __construct() {
+        $this->setConfig();
+    }
+
+    private function setConfig() {
+        $this->setDefaultConfig();
+        $this->config["vm"]["name"] = "ptvirtualize-drupal7" ;
+        $this->config["vm"]["gui_mode"] = "gui" ;
+        $this->config["vm"]["box"] = "vanillaubuntu1404264bitserveredition" ;
+        $this->config["vm"]["memory"] = "2048" ;
+        $this->config["vm"]["graceful_halt_timeout"] = 10 ;
+        $this->config["vm"]["ssh_halt_timeout"] = 10 ;
+        # Shared folder - This should map to the workstation environment vhost path parent...
+        $this->config["vm"]["shared_folders"][] =
+            array(
+                "name" => "{$this->config["vm"]["name"]}_host_web_path",
+                "host_path" => getcwd().DS,
+                "guest_path" => "/var/www/".$this->config["vm"]["name"],
+            ) ;
+        $guestPath = $this->config["vm"]["shared_folders"][0]["guest_path"] ;
+        # Provisioning
+        $this->config["vm"]["provision"][] =
+            array(
+                "provisioner" => "Shell",
+                "tool" => "shell",
+                "target" => "guest",
+                "default" => "MountShares"
+            ) ;
+        $this->config["vm"]["provision"][] =
+            array(
+                "provisioner" => "Shell",
+                "tool" => "shell",
+                "target" => "guest",
+                "default" => "PTConfigureInit"
+            ) ;
+        $this->config["vm"]["provision"][] =
+            array(
+                "provisioner" => "PharaohTools",
+                "tool" => "ptconfigure",
+                "target" => "guest",
+                "script" => $guestPath."/build/config/ptconfigure/cm-ptvbox.php",
+                "params" => array("docroot" => $guestPath),
+            ) ;
+        $this->config["vm"]["provision"][] =
+            array(
+                "provisioner" => "PharaohTools",
+                "tool" => "ptdeploy",
+                "target" => "host",
+                "script" => getcwd().DS."build".DS."config".DS."ptdeploy".DS."custom".DS."ptvhost-install-host-file-entry.php",
+                "params" => array("docroot" => getcwd()),
+            ) ;
+        $this->config["vm"]["provision"][] =
+            array(
+                "provisioner" => "PharaohTools",
+                "tool" => "ptdeploy",
+                "target" => "guest",
+                "script" => $guestPath."/drupal7/build/config/ptdeploy/custom/ptvbox-install-code-data.php",
+                "params" => array("docroot" => $guestPath),
+            ) ;
+        $this->config["vm"]["provision"][] =
+            array(
+                "provisioner" => "PharaohTools",
+                "tool" => "ptdeploy",
+                "target" => "guest",
+                "script" => $guestPath."/wordpress3.9/build/config/ptdeploy/custom/ptvbox-install-code-data.php",
+                "params" => array("docroot" => $guestPath),
+            ) ;
+        $this->config["vm"]["provision"][] =
+            array(
+                "provisioner" => "PharaohTools",
+                "tool" => "ptdeploy",
+                "target" => "guest",
+                "script" => $guestPath."/build/config/ptdeploy/custom/ptvbox-jenkins-vhost.php",
+                "params" => array("docroot" => $guestPath),
+            ) ;
+        $this->config["vm"]["provision_destroy_post"][] =
+            array(
+                "provisioner" => "PharaohTools",
+                "tool" => "ptdeploy",
+                "target" => "host",
+                "script" => getcwd().DS."build".DS."config".DS."ptdeploy".DS."custom".DS."ptvhost-uninstall-host-file-entry.php",
+                "params" => array("docroot" => getcwd()),
+            ) ;
+        $this->config["vm"]["post_up_message"] = "Hi Vice Guys! Your Pharaoh Tools powered box should be brought up now... " .
+            "Your three websites should now be accessible by browser - go to www.{$this->config["vm"]["name"]}.vm, for your index ".
+            "or go to wordpress.{$this->config["vm"]["name"]}.vm for your Wordpress site, or drupal.{$this->config["vm"]["name"]}.vm ".
+            "for your Drupal Site. You can also go to jenkins.{$this->config["vm"]["name"]}.vm to run some tests.";
+    }
+
+}
