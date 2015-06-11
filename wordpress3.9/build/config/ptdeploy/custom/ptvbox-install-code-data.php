@@ -34,14 +34,14 @@ class AutoPilotConfigured extends AutoPilot {
               array ( "Logging" => array( "log" => array( "log-message" => "Next create our host file entry for our local URL"), ) ),
               array ( "HostEditor" => array( "add" => array (
                   "guess" => true,
-                  "host-name" => "www.{$this->virtufile->config["vm"]["name"]}.vm",
+                  "host-name" => "wordpress.{$this->virtufile->config["vm"]["name"]}.vm",
               ), ), ),
 
               array ( "Logging" => array( "log" => array( "log-message" => "Next create our virtual host"), ) ),
               array ( "ApacheVHostEditor" => array( "add" => array (
                   "guess" => true,
-                  "vhe-docroot" => $this->docroot."/",
-                  "vhe-url" => "www.{$this->virtufile->config["vm"]["name"]}.vm",
+                  "vhe-docroot" => $this->docroot."/wordpress3.9/",
+                  "vhe-url" => "wordpress.{$this->virtufile->config["vm"]["name"]}.vm",
                   "vhe-ip-port" => $this->getCurrentTargetFromPapyrusLocal(),
                   "vhe-vhost-dir" => "/etc/apache2/sites-available",
                   "vhe-template" => $this->getTemplate(),
@@ -49,17 +49,17 @@ class AutoPilotConfigured extends AutoPilot {
 
               array ( "Logging" => array( "log" => array( "log-message" => "Next ensure our db file configuration is reset to blank" ), ), ),
               array ( "DBConfigure" => array( "wordpress-reset" => array(
-                  "parent-path" => $this->docroot."/",
+                  "parent-path" => $this->docroot."/wordpress3.9/",
                   "platform" => "wordpress",
               ), ), ),
 
               array ( "Logging" => array( "log" => array("log-message" => "Next configure our projects db configuration file"), ) ),
               array ( "DBConfigure" => array( "wordpress-conf" => array(
-                  "parent-path" => $this->docroot."/",
+                  "parent-path" => $this->docroot."/wordpress3.9/",
                   "mysql-host" => "127.0.0.1",
-                  "mysql-user" => "ph_user",
-                  "mysql-pass" => "ph_pass",
-                  "mysql-db" => "ph_db",
+                  "mysql-user" => "wp_user",
+                  "mysql-pass" => "wp_pass",
+                  "mysql-db" => "wp_db",
                   "mysql-platform" => "wordpress",
                   "mysql-admin-user" => "root",
                   "mysql-admin-pass" => "ptconfigure",
@@ -67,11 +67,11 @@ class AutoPilotConfigured extends AutoPilot {
 
               array ( "Logging" => array( "log" => array( "log-message" => "Now lets drop our current database if it exists"), ) ),
               array ( "DBInstall" => array( "drop" => array(
-                  "parent-path" => $this->docroot."/",
+                  "parent-path" => $this->docroot."/wordpress3.9/",
                   "mysql-host" => "127.0.0.1",
-                  "mysql-user" => "ph_user",
-                  "mysql-pass" => "ph_pass",
-                  "mysql-db" => "ph_db",
+                  "mysql-user" => "wp_user",
+                  "mysql-pass" => "wp_pass",
+                  "mysql-db" => "wp_db",
                   "mysql-platform" => "wordpress",
                   "mysql-admin-user" => "root",
                   "mysql-admin-pass" => "ptconfigure",
@@ -79,15 +79,15 @@ class AutoPilotConfigured extends AutoPilot {
 
               array ( "Logging" => array( "log" => array("log-message" => "Now lets install our database (with Wordpress DB Hooks)"), ), ),
               array ( "DBInstall" => array( "wordpress-install" => array(
-                  "parent-path" => $this->docroot."/",
+                  "parent-path" => $this->docroot."/wordpress3.9/",
                   "mysql-host" => "127.0.0.1",
-                  "mysql-user" => "ph_user",
-                  "mysql-pass" => "ph_pass",
-                  "mysql-db" => "ph_db",
+                  "mysql-user" => "wp_user",
+                  "mysql-pass" => "wp_pass",
+                  "mysql-db" => "wp_db",
                   "mysql-platform" => "wordpress",
                   "mysql-admin-user" => "root",
                   "mysql-admin-pass" => "ptconfigure",
-                  "hook-url" => "www.{$this->virtufile->config["vm"]["name"]}.vm"
+                  "hook-url" => "wordpress.{$this->virtufile->config["vm"]["name"]}.vm"
               ), ), ),
 
               array ( "Logging" => array( "log" => array( "log-message" => "Now lets restart Apache so we are serving our new application version", ), ), ),

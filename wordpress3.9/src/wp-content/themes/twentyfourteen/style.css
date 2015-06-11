@@ -71,6 +71,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	outline: 0;
 	padding: 0;
 	vertical-align: baseline;
+    background: #fff none repeat scroll 0 0;
 }
 
 article,
@@ -112,11 +113,11 @@ textarea {
 }
 
 body {
-	background: #f5f5f5;
+	/*background: #f5f5f5;*/
 }
 
 a {
-	color: #24890d;
+	/*color: #24890d;*/
 	text-decoration: none;
 }
 
@@ -181,7 +182,7 @@ address {
 }
 
 abbr[title] {
-	border-bottom: 1px dotted #2b2b2b;
+	/*border-bottom: 1px dotted #2b2b2b;*/
 	cursor: help;
 }
 
@@ -462,13 +463,13 @@ hr {
  * to achieve a better experience. See http://core.trac.wordpress.org/ticket/25898.
  */
 ::selection {
-	background: #24890d;
+	/*background: #fff;*/
 	color: #fff;
 	text-shadow: none;
 }
 
 ::-moz-selection {
-	background: #24890d;
+	/*background: #fff;*/
 	color: #fff;
 	text-shadow: none;
 }
@@ -550,20 +551,20 @@ input[type="submit"]:active {
 /* Placeholder text color -- selectors need to be separate to work. */
 
 ::-webkit-input-placeholder {
-	color: #939393;
+	color: #fff;
 }
 
 :-moz-placeholder {
-	color: #939393;
+	color: #fff;
 }
 
 ::-moz-placeholder {
-	color: #939393;
+	color: #fff;
 	opacity: 1; /* Since FF19 lowers the opacity of the placeholder by default */
 }
 
 :-ms-input-placeholder {
-	color: #939393;
+	color: #fff;
 }
 
 /* Responsive images. Fluid images for posts, comments, and widgets */
@@ -845,7 +846,7 @@ span + .edit-link:before,
 }
 
 .site-header {
-	background-color: #000;
+	background-color: #fff;
 	max-width: 1260px;
 	position: relative;
 	width: 100%;
@@ -867,7 +868,7 @@ span + .edit-link:before,
 
 .site-title a,
 .site-title a:hover {
-	color: #fff;
+	color: #000;
 }
 
 /* Search in the header */
@@ -2062,11 +2063,11 @@ a.post-thumbnail:hover {
 /* Secondary */
 
 #secondary {
-	background-color: #000;
-	border-top: 1px solid #000;
-	border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-	clear: both;
-	color: rgba(255, 255, 255, 0.7);
+	/*background-color: #000;*/
+	/*border-top: 1px solid #000;*/
+	/*border-bottom: 1px solid rgba(255, 255, 255, 0.2);*/
+	/*clear: both;*/
+	/*color: rgba(255, 255, 255, 0.7);*/
 	margin-top: -1px;
 	padding: 0 10px;
 	position: relative;
@@ -2123,7 +2124,7 @@ a.post-thumbnail:hover {
 }
 
 .widget a {
-	color: #fff;
+	color: #000;
 }
 
 .widget a:hover {
@@ -2174,7 +2175,7 @@ a.post-thumbnail:hover {
 }
 
 .widget abbr[title] {
-	border-color: rgba(255, 255, 255, 0.7);
+	/*border-color: rgba(255, 255, 255, 0.7);*/
 }
 
 .widget mark,
@@ -2303,7 +2304,7 @@ a.post-thumbnail:hover {
 
 .widget-title,
 .widget-title a {
-	color: #fff;
+	color: #000;
 }
 
 .widget-title a:hover {
@@ -2727,11 +2728,11 @@ a.post-thumbnail:hover {
 .site-footer,
 .site-info,
 .site-info a {
-	color: rgba(255, 255, 255, 0.7);
+	/*color: rgba(255, 255, 255, 0.7);*/
 }
 
 .site-footer {
-	background-color: #000;
+	/*background-color: #000;*/
 	font-size: 12px;
 	position: relative;
 	z-index: 3;
@@ -3601,16 +3602,16 @@ a.post-thumbnail:hover {
 
 @media screen and (min-width: 1008px) {
 	.search-box-wrapper {
-		padding-left: 182px;
+		/*padding-left: 182px;*/
 	}
 
 	.main-content {
-		float: left;
+		/*float: left;*/
 	}
 
 	.site-content {
 		margin-right: 29.04761904%;
-		margin-left: 182px;
+		/*margin-left: 182px;*/
 	}
 
 	.site-content .entry-header {
@@ -3622,12 +3623,12 @@ a.post-thumbnail:hover {
 	}
 
 	.content-sidebar {
-		margin-left: -29.04761904%;
-		width: 29.04761904%;
+		/*margin-left: -29.04761904%;*/
+		/*width: 29.04761904%;*/
 	}
 
 	.site:before {
-		background-color: #000;
+		background-color: #fff;
 		content: "";
 		display: block;
 		height: 100%;
@@ -3635,18 +3636,18 @@ a.post-thumbnail:hover {
 		position: absolute;
 		top: 0;
 		left: 0;
-		width: 182px;
+		/*width: 182px;*/
 		z-index: 2;
 	}
 
 	#secondary {
-		background-color: transparent;
+		/*background-color: transparent;*/
 		border: 0;
 		clear: none;
 		float: left;
-		margin: 0 0 0 -100%;
-		min-height: 100vh;
-		width: 122px;
+		/*margin: 0 0 0 -100%;*/
+		/*min-height: 100vh;*/
+		/*width: 122px;*/
 	}
 
 	.primary-sidebar {
@@ -3959,30 +3960,31 @@ a.post-thumbnail:hover {
 
 	.site-content,
 	.site-main .widecolumn {
-		margin-left: 222px;
+		/*margin-left: 222px;*/
 	}
 
 	.site:before {
-		width: 222px;
+		/*width: 222px;*/
 	}
 
 	.search-box-wrapper,
 	.featured-content {
-		padding-left: 222px;
+		/*padding-left: 222px;*/
 	}
 
 	#secondary {
-		width: 162px;
+		/*width: 162px;*/
+        background-color: #fff;
 	}
 
 	.secondary-navigation,
 	.secondary-navigation ul ul {
-		width: 222px;
+		/*width: 222px;*/
 	}
 
 	.secondary-navigation ul li:hover > ul,
 	.secondary-navigation ul li.focus > ul {
-		left: 202px;
+		/*left: 202px;*/
 	}
 
 	.slider .featured-content .entry-title {
@@ -4227,4 +4229,25 @@ a.post-thumbnail:hover {
 		font-size: 25pt;
 		line-height: 36px;
 	}
+}
+
+
+
+div#page {
+    width: 100% ;
+}
+
+#secondary {
+    display: none;
+}
+
+#content {
+    padding: 0;
+    margin: 0;
+}
+
+#main-image {
+    margin: 0 auto;
+    display: inline-table;
+    max-width: 1120px;
 }
