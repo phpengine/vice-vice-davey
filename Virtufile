@@ -12,7 +12,7 @@ class Virtufile extends VirtufileBase {
 
     private function setConfig() {
         $this->setDefaultConfig();
-        $this->config["vm"]["name"] = "ptvirtualize-drupal7" ;
+        $this->config["vm"]["name"] = "vice-should-hire-dave" ;
         $this->config["vm"]["gui_mode"] = "gui" ;
         $this->config["vm"]["box"] = "vanillaubuntu1404264bitserveredition" ;
         $this->config["vm"]["memory"] = "2048" ;
@@ -41,14 +41,14 @@ class Virtufile extends VirtufileBase {
                 "target" => "guest",
                 "default" => "PTConfigureInit"
             ) ;
-        $this->config["vm"]["provision"][] =
-            array(
-                "provisioner" => "PharaohTools",
-                "tool" => "ptconfigure",
-                "target" => "guest",
-                "script" => $guestPath."/build/config/ptconfigure/cm-ptvbox.php",
-                "params" => array("docroot" => $guestPath),
-            ) ;
+//        $this->config["vm"]["provision"][] =
+//            array(
+//                "provisioner" => "PharaohTools",
+//                "tool" => "ptconfigure",
+//                "target" => "guest",
+//                "script" => $guestPath."/build/config/ptconfigure/cm-ptvbox.php",
+//                "params" => array("docroot" => $guestPath),
+//            ) ;
         $this->config["vm"]["provision"][] =
             array(
                 "provisioner" => "PharaohTools",
@@ -57,12 +57,32 @@ class Virtufile extends VirtufileBase {
                 "script" => getcwd().DS."build".DS."config".DS."ptdeploy".DS."custom".DS."ptvhost-install-host-file-entry.php",
                 "params" => array("docroot" => getcwd()),
             ) ;
+//       @todo after the first time you bring the box up, you probably want to swap these two for the two below
+//        $this->config["vm"]["provision"][] =
+//            array(
+//                "provisioner" => "PharaohTools",
+//                "tool" => "ptdeploy",
+//                "target" => "guest",
+//                "script" => $guestPath."/drupal7/build/config/ptdeploy/custom/ptvbox-install-code-data.php",
+//                "params" => array("docroot" => $guestPath."/drupal7"),
+//            ) ;
+//        $this->config["vm"]["provision"][] =
+//            array(
+//                "provisioner" => "PharaohTools",
+//                "tool" => "ptdeploy",
+//                "target" => "guest",
+//                "script" => $guestPath."/wordpress3.9/build/config/ptdeploy/custom/ptvbox-install-code-data.php",
+//                "params" => array("docroot" => $guestPath."/wordpress3.9"),
+//            ) ;
+//       @todo
+//       after the first time you bring up the box, comment the above two and uncomment these, otherwise we'll be
+//       reinstalling the database. Leave it as it is if thats what you want
         $this->config["vm"]["provision"][] =
             array(
                 "provisioner" => "PharaohTools",
                 "tool" => "ptdeploy",
                 "target" => "guest",
-                "script" => $guestPath."/drupal7/build/config/ptdeploy/custom/ptvbox-install-code-data.php",
+                "script" => $guestPath."/drupal7/build/config/ptdeploy/custom/ptvbox-install-code-dbconf.php",
                 "params" => array("docroot" => $guestPath),
             ) ;
         $this->config["vm"]["provision"][] =
@@ -70,7 +90,7 @@ class Virtufile extends VirtufileBase {
                 "provisioner" => "PharaohTools",
                 "tool" => "ptdeploy",
                 "target" => "guest",
-                "script" => $guestPath."/wordpress3.9/build/config/ptdeploy/custom/ptvbox-install-code-data.php",
+                "script" => $guestPath."/wordpress3.9/build/config/ptdeploy/custom/ptvbox-install-code-dbconf.php",
                 "params" => array("docroot" => $guestPath),
             ) ;
         $this->config["vm"]["provision"][] =
