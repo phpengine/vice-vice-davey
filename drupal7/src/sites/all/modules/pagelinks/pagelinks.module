@@ -16,19 +16,19 @@
  * @param arg
  * Array that holds the current path as returned from arg() function
  */
-function hire_me_now_help($path, $arg) {
+function pagelinks_help($path, $arg) {
     switch ($path) {
-        case "admin/help#hire_me_now":
-            return '<p>'.t("This is the Hire Dave Now Module").'</p>';
+        case "admin/help#pagelinks":
+            return '<p>'.t("This is the Pagelinks Module").'</p>';
             break;
     }
 }
 /**
  * Implements hook_block_info().
  */
-function hire_me_now_block_info() {
-    $blocks['hire_me_now'] = array(
-        'info' => t('The Vice.com Main page block'), //The name that will appear in the block list.
+function pagelinks_block_info() {
+    $blocks['pagelinks'] = array(
+        'info' => t('The Page Links block'), //The name that will appear in the block list.
         'cache' => DRUPAL_CACHE_PER_ROLE //Default
     );
     return $blocks;
@@ -36,10 +36,10 @@ function hire_me_now_block_info() {
 /**
  * Implements hook_block_view().
  */
-function hire_me_now_block_view($delta = '') {
+function pagelinks_block_view($delta = '') {
     $block['content'] = "" ;
     switch($delta){
-        case 'hire_me_now_oop':
+        case 'pagelinks_oop':
             $block['subject'] = t('Some data from an OO Class');
             if(user_access('access content')){
                 require_once(dirname(__FILE__)."/Libraries/HelloLib.php");
@@ -47,7 +47,7 @@ function hire_me_now_block_view($delta = '') {
                 $word = $hello->sayHelloForMe() ;
                 $block['content'] = $word; }
             break ;
-        case 'hire_me_now_procedural':
+        case 'pagelinks_procedural':
             $block['subject'] = t('A simple bit of data from a variable_get');
             if(user_access('access content')){
                 $word = variable_get("hello_world") ;

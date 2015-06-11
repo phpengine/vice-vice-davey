@@ -55,7 +55,7 @@ body,
   position: relative;
 }
 .one-sidebar #content {
-  width: 720px;
+  width: 100%;
 }
 .two-sidebars #content {
   width: 480px;

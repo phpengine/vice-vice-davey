@@ -1,6 +1,6 @@
 <?php
 
-class HelloLib {
+class PageLinksLib {
 
     public function __construct() {
 

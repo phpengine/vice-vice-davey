@@ -1648,3 +1648,18 @@ div.admin-panel .description {
 #footer-wrapper .poll .bar .foreground {
   background-color: #ddd;
 }
+
+
+
+
+#main-image-wrap {
+    float: left;
+    display: block;
+    width: 100%;
+}
+
+
+#main-image img {
+    display: block;
+    margin: 0 auto;
+}

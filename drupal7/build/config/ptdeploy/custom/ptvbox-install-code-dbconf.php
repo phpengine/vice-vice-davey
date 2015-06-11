@@ -34,14 +34,14 @@ class AutoPilotConfigured extends AutoPilot {
               array ( "Logging" => array( "log" => array( "log-message" => "Next create our host file entry for our local URL"), ) ),
               array ( "HostEditor" => array( "add" => array (
                   "guess" => true,
-                  "host-name" => "www.{$this->virtufile->config["vm"]["name"]}.vm",
+                  "host-name" => "drupal.{$this->virtufile->config["vm"]["name"]}.vm",
               ), ), ),
 
               array ( "Logging" => array( "log" => array( "log-message" => "Next create our virtual host"), ) ),
               array ( "ApacheVHostEditor" => array( "add" => array (
                   "guess" => true,
-                  "vhe-docroot" => $this->docroot."/",
-                  "vhe-url" => "www.{$this->virtufile->config["vm"]["name"]}.vm",
+                  "vhe-docroot" => $this->docroot."/drupal7/",
+                  "vhe-url" => "drupal.{$this->virtufile->config["vm"]["name"]}.vm",
                   "vhe-ip-port" => $this->getCurrentTargetFromPapyrusLocal(),
                   "vhe-vhost-dir" => "/etc/apache2/sites-available",
                   "vhe-template" => $this->getTemplate(),
@@ -49,45 +49,22 @@ class AutoPilotConfigured extends AutoPilot {
 
               array ( "Logging" => array( "log" => array( "log-message" => "Next ensure our db file configuration is reset to blank" ), ), ),
               array ( "DBConfigure" => array( "drupal7-reset" => array(
-                  "parent-path" => $this->docroot."/",
+                  "parent-path" => $this->docroot."/drupal7/",
                   "platform" => "drupal7",
               ), ), ),
 
               array ( "Logging" => array( "log" => array("log-message" => "Next configure our projects db configuration file"), ) ),
               array ( "DBConfigure" => array( "drupal7-conf" => array(
-                  "parent-path" => $this->docroot."/",
+                  "parent-path" => $this->docroot."/drupal7/",
                   "mysql-host" => "127.0.0.1",
-                  "mysql-user" => "ph_user",
-                  "mysql-pass" => "ph_pass",
-                  "mysql-db" => "ph_db",
+                  "mysql-user" => "dr_user",
+                  "mysql-pass" => "dr_pass",
+                  "mysql-db" => "dr_db",
                   "mysql-platform" => "drupal7",
                   "mysql-admin-user" => "root",
                   "mysql-admin-pass" => "ptconfigure",
               ), ) , ) ,
 
-              array ( "Logging" => array( "log" => array( "log-message" => "Now lets drop our current database if it exists"), ) ),
-              array ( "DBInstall" => array( "drop" => array(
-                  "parent-path" => $this->docroot."/",
-                  "mysql-host" => "127.0.0.1",
-                  "mysql-user" => "ph_user",
-                  "mysql-pass" => "ph_pass",
-                  "mysql-db" => "ph_db",
-                  "mysql-platform" => "drupal7",
-                  "mysql-admin-user" => "root",
-                  "mysql-admin-pass" => "ptconfigure",
-              ), ), ),
-
-              array ( "Logging" => array( "log" => array("log-message" => "Now lets install our database"), ), ),
-              array ( "DBInstall" => array( "install" => array(
-                  "parent-path" => $this->docroot."/",
-                  "mysql-host" => "127.0.0.1",
-                  "mysql-user" => "ph_user",
-                  "mysql-pass" => "ph_pass",
-                  "mysql-db" => "ph_db",
-                  "mysql-platform" => "drupal7",
-                  "mysql-admin-user" => "root",
-                  "mysql-admin-pass" => "ptconfigure",
-              ), ), ),
 
               array ( "Logging" => array( "log" => array( "log-message" => "Now lets restart Apache so we are serving our new application version", ), ), ),
               array ( "ApacheControl" => array( "restart" => array(
